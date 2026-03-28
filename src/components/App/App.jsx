@@ -17,6 +17,18 @@ export class App extends Component {
     largeImageURL: '',
   };
 
+  async componentDidMount (){
+    this.setState({  isLoading: true, });
+    try {
+      const data = await fetchImages();
+      this.setState({ images: data });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      this.setState({ isLoading: false });
+    }
+  }
+
   SearchImages = async query => {
     this.setState({ searchQuery: query, isLoading: true, page: 1, images: [] });
     try {
